@@ -3,32 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Email Signature Generator</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Email Signature</title>
+    <style>
+        #preview {
+            max-width: 200px;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Email Signature Generator</h1>
-        <form id="signature-form">
-            <input type="text" id="name" placeholder="Name" required>
-            <input type="text" id="position" placeholder="Position" required>
-            <input type="email" id="email" placeholder="Email" required>
-            <input type="tel" id="phone" placeholder="Phone" required>
-            <input type="text" id="company" placeholder="Company" required>
-            <label for="color">Signature Color:</label>
-            <input type="color" id="color">
-            <label for="font">Font:</label>
-            <select id="font">
-                <option value="Arial">Arial</option>
-                <option value="Verdana">Verdana</option>
-                <option value="Georgia">Georgia</option>
-            </select>
-            <button type="submit">Generate Signature</button>
-        </form>
-        <div id="preview"></div>
-        <button id="copy-button">Copy to Clipboard</button>
-        <button id="download-button">Download as HTML</button>
-    </div>
-    <script src="script.js"></script>
+    <h1>Email Signature</h1>
+    <form id="signatureForm">
+        <label for="photoUpload">Upload your photo:</label>
+        <input type="file" id="photoUpload" accept="image/*">
+        <img id="preview" src="" alt="Photo Preview" style="display:none;">
+        <script>
+            const photoUpload = document.getElementById('photoUpload');
+            const preview = document.getElementById('preview');
+
+            photoUpload.addEventListener('change', function() {
+                const file = this.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        preview.src = event.target.result;
+                        preview.style.display = 'block';
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        </script>
+    </form>
 </body>
 </html>
